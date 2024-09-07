@@ -3,7 +3,8 @@ import { Product } from "@/types/product";
 
 const productData: Product[] = [
   {
-    image: "/images/product/product-01.png",
+    id: "1",
+    imageSrc: "/images/product/product-01.png",
     name: "Apple Watch Series 7",
     category: "Electronics",
     price: 296,
@@ -11,7 +12,8 @@ const productData: Product[] = [
     profit: 45,
   },
   {
-    image: "/images/product/product-02.png",
+    id: "1",
+    imageSrc: "/images/product/product-02.png",
     name: "Macbook Pro M1",
     category: "Electronics",
     price: 546,
@@ -19,7 +21,8 @@ const productData: Product[] = [
     profit: 125,
   },
   {
-    image: "/images/product/product-03.png",
+    id: "1",
+    imageSrc: "/images/product/product-03.png",
     name: "Dell Inspiron 15",
     category: "Electronics",
     price: 443,
@@ -27,7 +30,8 @@ const productData: Product[] = [
     profit: 247,
   },
   {
-    image: "/images/product/product-04.png",
+    id: "1",
+    imageSrc: "/images/product/product-04.png",
     name: "HP Probook 450",
     category: "Electronics",
     price: 499,
@@ -72,7 +76,7 @@ const TableTwo = () => {
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
               <div className="h-12.5 w-15 rounded-md">
                 <Image
-                  src={product.image}
+                  src={product.imageSrc? product.imageSrc : "/images/product/product-01.png"}
                   width={60}
                   height={50}
                   alt="Product"

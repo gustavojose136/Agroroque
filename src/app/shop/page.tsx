@@ -63,7 +63,7 @@ const ShopPage = () => {
     <DefaultLayout>
       <div className="flex flex-row gap-10">
         <div className="mx-auto max-w-242.5">
-          <Breadcrumb pageName="Shop" />
+        <Breadcrumb pageName="Shop" />
 
           <div className="grid grid-cols-3 gap-4">
             {Array.from({ length: count }).map((_, index) => (
