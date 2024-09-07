@@ -1,14 +1,23 @@
+'use client'
+
 import { Package } from "@/types/package";
 import { ITableOneProps } from "./TableOne";
 import { Solicitacao } from "@/types/solicitacao";
 import { Icon } from "@iconify/react";
+import { useRouter } from "next/navigation";
 
 export interface ITableThreeProps {
-  ItensName: string[];
+  ItensName: string[];  
   Itens: Solicitacao[];
 }
 
 const TableThree = ({ ItensName, Itens }: ITableThreeProps) => {
+  const router = useRouter();
+
+  const handleViewClick = (id: string) => {
+    router.push(`/aprovacoes/${id}`);
+  };
+
   return (
     <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
       <div className="max-w-full overflow-x-auto">
@@ -34,7 +43,6 @@ const TableThree = ({ ItensName, Itens }: ITableThreeProps) => {
                   <h5 className="font-medium text-black dark:text-white">
                     {packageItem.colaborador}
                   </h5>
-                  {/* <p className="text-sm">${packageItem.price}</p> */}
                 </td>
                 <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                   <p className="text-black dark:text-white">
@@ -47,8 +55,8 @@ const TableThree = ({ ItensName, Itens }: ITableThreeProps) => {
                       packageItem.status === "Paid"
                         ? "bg-success text-success"
                         : packageItem.status === "Unpaid"
-                          ? "bg-danger text-danger"
-                          : "bg-warning text-warning"
+                        ? "bg-danger text-danger"
+                        : "bg-warning text-warning"
                     }`}
                   >
                     {packageItem.status}
@@ -67,7 +75,10 @@ const TableThree = ({ ItensName, Itens }: ITableThreeProps) => {
                     <button className="hover:text-primary">
                       <Icon icon="dashicons:no" className="text-2xl" />
                     </button>
-                    <button className="hover:text-primary">
+                    <button
+                      className="hover:text-primary"
+                      onClick={() => handleViewClick(packageItem.id)} // Redireciona com o ID
+                    >
                       <Icon icon="mdi:eye-outline" className="text-2xl" />
                     </button>
                   </div>

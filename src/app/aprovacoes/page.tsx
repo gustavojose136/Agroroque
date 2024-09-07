@@ -7,6 +7,8 @@ import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import { Package } from "@/types/package";
 import { Solicitacao } from "@/types/solicitacao";
+import { Icon } from "@iconify/react";
+
 
 export const metadata: Metadata = {
   title: "Next.js Tables | TailAdmin - Next.js Dashboard Template",
