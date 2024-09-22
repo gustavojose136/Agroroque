@@ -11,7 +11,9 @@
   "dependencies": {
     "@iconify/react": "^5.0.2",
     "apexcharts": "^3.45.2",
+    "axios": "^1.7.7",
     "flatpickr": "^4.6.13",
+    "jsonwebtoken": "^9.0.2",
     "jsvectormap": "^1.6.0",
     "next": "^14.2.4",
     "react": "^18",
@@ -21,6 +23,7 @@
   },
   "devDependencies": {
     "@iconify/react": "^5.0.2",
+    "@types/jsonwebtoken": "^9.0.6",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
