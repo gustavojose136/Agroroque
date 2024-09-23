@@ -89,7 +89,7 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
   };
 
   const redirectToLogin = () => {
-    router.push('auth/signin');
+    router.push('auth/login');
   }
 
   return (

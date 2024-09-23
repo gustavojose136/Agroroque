@@ -24,14 +24,15 @@ const loginSchema = z.object({
 });
 
 const LoginForm = () => {
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+  const router = useRouter();
 
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+  const API_ROUTE = API_URL + "/login";
+  
   const [storedToken, setStoredToken] = useLocalStorage<string | null>(
     "token",
     null,
   );
-  const router = useRouter();
-
   const [user, setUser] = useState<User | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -39,14 +40,7 @@ const LoginForm = () => {
     const token = localStorage.getItem("token");
 
     if (token) {
-      const decoded: any = jwtDecode(token);
-      const decodedUser = {
-        id: decoded.id,
-        name: decoded.name,
-        email: decoded.email,
-        pic: decoded.picture,
-      };
-      setUser(decodedUser);
+      decodeJwtAndSetUser(token);
     }
   }, []);
 
@@ -70,11 +64,11 @@ const LoginForm = () => {
     resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit = async (data: User) => {
-    console.log(data);
+  const onSubmit = async (loginData: User) => {
+    console.log(loginData);
 
     try {
-      const response = await axios.post(`${API_URL}/login`, data);
+      const response = await axios.post(API_ROUTE, loginData);
       console.log("Login bem-sucedido:", response.data);
 
       const token = response.data.token;
@@ -82,22 +76,27 @@ const LoginForm = () => {
       if (token) {
         setStoredToken(token);
 
-        const decoded: any = jwtDecode(token);
-        const decodedUser = {
-          id: decoded.id,
-          name: decoded.name,
-          email: decoded.email,
-          pic: decoded.picture,
-        };
-        setUser(decodedUser);
+        decodeJwtAndSetUser(token);
       }
     } catch (error: any) {
       console.error("Erro ao fazer login:", error.message || "");
 
-      if(error.response?.status === 404) setError('Servidor em manutenção. Tente novamente mais tarde.')
+      if (error.response?.status === 404 || error.response?.status > 500)
+        setError("Servidor em manutenção. Tente novamente mais tarde.");
     }
 
     redirectLoggedUser();
+  };
+
+  const decodeJwtAndSetUser = (token: string) => {
+    const decoded: any = jwtDecode(token);
+    const decodedUser = {
+      id: decoded.id,
+      name: decoded.name,
+      email: decoded.email,
+      pic: decoded.picture,
+    };
+    setUser(decodedUser);
   };
 
   return (
@@ -106,9 +105,13 @@ const LoginForm = () => {
         Login
       </h2>
 
-      {error ? 
-      <div className="border border-rose-500 bg-rose-500 text-white font-semibold text-lg rounded-lg py-4 px-6 mb-4">{error}</div>
-       : ""}
+      {error ? (
+        <div className="mb-4 rounded-lg border border-rose-500 bg-rose-500 px-6 py-4 text-lg font-semibold text-white">
+          {error}
+        </div>
+      ) : (
+        ""
+      )}
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
