@@ -6,7 +6,12 @@ const config: Config = {
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
   ],
+  prefix: "",
   darkMode: "class",
   theme: {
     fontFamily: {
@@ -57,6 +62,31 @@ const config: Config = {
         success: "#219653",
         danger: "#D34053",
         warning: "#FFA70B",
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
+        },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        },
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
+        },
       },
       fontSize: {
         "title-xxl": ["44px", "55px"],
@@ -191,30 +221,23 @@ const config: Config = {
         203: "50.75rem",
         230: "57.5rem",
         242.5: "60.625rem",
-        270: "67.5rem",
-        280: "70rem",
-        292.5: "73.125rem",
       },
       maxHeight: {
         35: "8.75rem",
         70: "17.5rem",
         90: "22.5rem",
-        550: "34.375rem",
-        300: "18.75rem",
+        110: "27.5rem",
       },
       minWidth: {
         22.5: "5.625rem",
         42.5: "10.625rem",
-        47.5: "11.875rem",
-        75: "18.75rem",
       },
       zIndex: {
         999999: "999999",
         99999: "99999",
-        9999: "9999",
-        999: "999",
-        99: "99",
-        9: "9",
+        1000: "1000",
+        100: "100",
+        10: "10",
         1: "1",
       },
       opacity: {
@@ -239,97 +262,73 @@ const config: Config = {
       boxShadow: {
         default: "0px 8px 13px -3px rgba(0, 0, 0, 0.07)",
         card: "0px 1px 3px rgba(0, 0, 0, 0.12)",
-        "card-2": "0px 1px 2px rgba(0, 0, 0, 0.05)",
-        switcher:
-          "0px 2px 4px rgba(0, 0, 0, 0.2), inset 0px 2px 2px #FFFFFF, inset 0px -1px 1px rgba(0, 0, 0, 0.1)",
-        "switch-1": "0px 0px 5px rgba(0, 0, 0, 0.15)",
-        1: "0px 1px 3px rgba(0, 0, 0, 0.08)",
-        2: "0px 1px 4px rgba(0, 0, 0, 0.12)",
-        3: "0px 1px 5px rgba(0, 0, 0, 0.14)",
-        4: "0px 4px 10px rgba(0, 0, 0, 0.12)",
-        5: "0px 1px 1px rgba(0, 0, 0, 0.15)",
-        6: "0px 3px 15px rgba(0, 0, 0, 0.1)",
-        7: "-5px 0 0 #313D4A, 5px 0 0 #313D4A",
-        8: "1px 0 0 #313D4A, -1px 0 0 #313D4A, 0 1px 0 #313D4A, 0 -1px 0 #313D4A, 0 3px 13px rgb(0 0 0 / 8%)",
-        9: "0px 2px 3px rgba(183, 183, 183, 0.5)",
-        10: "0px 1px 2px 0px rgba(0, 0, 0, 0.10)",
-        11: "0px 1px 3px 0px rgba(166, 175, 195, 0.40)",
-        12: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.18)",
-        13: "0px 1px 3px 0px rgba(0, 0, 0, 0.08)",
-        14: "0px 2px 3px 0px rgba(0, 0, 0, 0.10)",
+        sm: "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
+        md: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+        lg: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
+        xl: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+        "2xl": "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
+        inner: "inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)",
       },
+
       dropShadow: {
         1: "0px 1px 0px #E2E8F0",
         2: "0px 1px 4px rgba(0, 0, 0, 0.12)",
-        3: "0px 0px 4px rgba(0, 0, 0, 0.15)",
-        4: "0px 0px 2px rgba(0, 0, 0, 0.2)",
-        5: "0px 1px 5px rgba(0, 0, 0, 0.2)",
+        3: "0 1px 2px rgba(0, 0, 0, 0.1)",
+        4: "0 1px 3px rgba(0, 0, 0, 0.1)",
+        5: "0 2px 10px rgba(0, 0, 0, 0.15)",
+        6: "0 4px 14px rgba(0, 0, 0, 0.25)",
+        7: "0 10px 30px rgba(0, 0, 0, 0.4)",
       },
+
       keyframes: {
+        "accordion-down": {
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
         linspin: {
           "100%": { transform: "rotate(360deg)" },
         },
-        easespin: {
-          "12.5%": { transform: "rotate(135deg)" },
-          "25%": { transform: "rotate(270deg)" },
-          "37.5%": { transform: "rotate(405deg)" },
-          "50%": { transform: "rotate(540deg)" },
-          "62.5%": { transform: "rotate(675deg)" },
-          "75%": { transform: "rotate(810deg)" },
-          "87.5%": { transform: "rotate(945deg)" },
-          "100%": { transform: "rotate(1080deg)" },
-        },
-        "left-spin": {
-          "0%": { transform: "rotate(130deg)" },
-          "50%": { transform: "rotate(-5deg)" },
-          "100%": { transform: "rotate(130deg)" },
-        },
-        "right-spin": {
-          "0%": { transform: "rotate(-130deg)" },
-          "50%": { transform: "rotate(5deg)" },
-          "100%": { transform: "rotate(-130deg)" },
-        },
-        rotating: {
-          "0%, 100%": { transform: "rotate(360deg)" },
-          "50%": { transform: "rotate(0deg)" },
-        },
-        topbottom: {
-          "0%, 100%": { transform: "translate3d(0, -100%, 0)" },
-          "50%": { transform: "translate3d(0, 0, 0)" },
-        },
-        bottomtop: {
-          "0%, 100%": { transform: "translate3d(0, 0, 0)" },
-          "50%": { transform: "translate3d(0, -100%, 0)" },
-        },
-        line: {
+        bounce: {
           "0%, 100%": { transform: "translateY(0)" },
-          "50%": { transform: "translateY(100%)" },
+          "50%": { transform: "translateY(-25%)" },
         },
-        "line-revert": {
-          "0%, 100%": { transform: "translateY(100%)" },
-          "50%": { transform: "translateY(0)" },
+        fadeIn: {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
+        },
+        fadeOut: {
+          "0%": { opacity: "1" },
+          "100%": { opacity: "0" },
+        },
+        slideIn: {
+          "0%": { transform: "translateX(-100%)" },
+          "100%": { transform: "translateX(0)" },
         },
       },
+
       animation: {
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
         linspin: "linspin 1568.2353ms linear infinite",
-        easespin: "easespin 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both",
-        "left-spin":
-          "left-spin 1333ms cubic-bezier(0.4, 0, 0.2, 1) infinite both",
-        "right-spin":
-          "right-spin 1333ms cubic-bezier(0.4, 0, 0.2, 1) infinite both",
-        "ping-once": "ping 5s cubic-bezier(0, 0, 0.2, 1)",
-        rotating: "rotating 30s linear infinite",
-        topbottom: "topbottom 60s infinite alternate linear",
-        bottomtop: "bottomtop 60s infinite alternate linear",
-        "spin-1.5": "spin 1.5s linear infinite",
-        "spin-2": "spin 2s linear infinite",
-        "spin-3": "spin 3s linear infinite",
-        line1: "line 10s infinite linear",
-        line2: "line-revert 8s infinite linear",
-        line3: "line 7s infinite linear",
+        bounce: "bounce 1s infinite",
+        fadeIn: "fadeIn 0.5s forwards",
+        fadeOut: "fadeOut 0.5s forwards",
+        slideIn: "slideIn 0.5s forwards",
+        pulse: "pulse 1s infinite",
+      },
+    },
+    container: {
+      center: true,
+      padding: "2rem",
+      screens: {
+        "2xl": "1400px",
       },
     },
   },
-  plugins: [],
+  plugins: [require("tailwindcss-animate")],
 };
 export default config;

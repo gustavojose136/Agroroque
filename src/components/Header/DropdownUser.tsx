@@ -2,10 +2,20 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import ClickOutside from "@/components/ClickOutside";
-import { Icon } from "@iconify/react";
+import { useRouter } from "next/navigation";
 
 const DropdownUser = () => {
+  const router = useRouter();
   const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const logoutUser = () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      localStorage.removeItem("token");
+    }
+
+    router.push("");
+  };
 
   return (
     <ClickOutside onClick={() => setDropdownOpen(false)} className="relative">
@@ -80,7 +90,7 @@ const DropdownUser = () => {
                     fill=""
                   />
                 </svg>
-                My Profile
+                Perfil
               </Link>
             </li>
             <li>
@@ -126,11 +136,16 @@ const DropdownUser = () => {
                     fill=""
                   />
                 </svg>
-                Account Settings
+                Configurações de Conta
               </Link>
-            </li> 
-          </ul>*/}
-          <button className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
+            </li>
+          </ul>
+          <button
+            className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
+            onClick={() => {
+              logoutUser();
+            }}
+          >
             <svg
               className="fill-current"
               width="22"
@@ -148,7 +163,7 @@ const DropdownUser = () => {
                 fill=""
               />
             </svg>
-            Deslogar
+            Sair
           </button>
         </div>
       )}
