@@ -33,6 +33,7 @@ const LoginForm = () => {
   const router = useRouter();
 
   const [user, setUser] = useState<User | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -70,8 +71,8 @@ const LoginForm = () => {
   });
 
   const onSubmit = async (data: User) => {
-    console.log(data)
-    
+    console.log(data);
+
     try {
       const response = await axios.post(`${API_URL}/login`, data);
       console.log("Login bem-sucedido:", response.data);
@@ -91,10 +92,9 @@ const LoginForm = () => {
         setUser(decodedUser);
       }
     } catch (error: any) {
-      console.error(
-        "Erro ao fazer login:",
-        error.response?.data || error.message,
-      );
+      console.error("Erro ao fazer login:", error.message || "");
+
+      if(error.response?.status === 404) setError('Servidor em manutenção. Tente novamente mais tarde.')
     }
 
     redirectLoggedUser();
@@ -105,6 +105,10 @@ const LoginForm = () => {
       <h2 className="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
         Login
       </h2>
+
+      {error ? 
+      <div className="border border-rose-500 bg-rose-500 text-white font-semibold text-lg rounded-lg py-4 px-6 mb-4">{error}</div>
+       : ""}
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
