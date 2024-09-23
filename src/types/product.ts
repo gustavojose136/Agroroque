@@ -8,6 +8,6 @@ export type Product = {
   price?: number;
   stockQnt?: number;
   sold?: number;
-  cartQnt?: number;
+  cartQntd?: number;
   profit?: number;
 };

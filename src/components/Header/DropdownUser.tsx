@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import ClickOutside from "@/components/ClickOutside";
 import { useRouter } from "next/navigation";
+import { Icon } from "@iconify/react";
 
 const DropdownUser = () => {
   const router = useRouter();
@@ -26,9 +27,8 @@ const DropdownUser = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            Usuario teste
+            USUARIO NOME
           </span>
-          {/* <span className="block text-xs">UX Designer</span> */}
         </span>
 
         <span className="h-12 w-12 rounded-full flex justify-center items-center bg-gray">
@@ -42,7 +42,7 @@ const DropdownUser = () => {
             }}
             alt="User"
           /> */}
-          <Icon icon="ph:user-bold" className="text-3xl"/>
+          <Icon icon="ph:user-bold" className="text-2xl"/>
         </span>
 
         <svg
@@ -67,7 +67,7 @@ const DropdownUser = () => {
         <div
           className={`absolute right-0 mt-4 flex w-62.5 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark`}
         >
-          {/*<ul className="flex flex-col gap-5 border-b border-stroke px-6 py-7.5 dark:border-strokedark">
+          <ul className="flex flex-col gap-5 border-b border-stroke px-6 py-7.5 dark:border-strokedark">
              <li>
               <Link
                 href="/profile"

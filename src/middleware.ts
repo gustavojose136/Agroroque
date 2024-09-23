@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 var jwt = require('jsonwebtoken');
 
-const SECRET_KEY = process.env.NEXT_PUBLIC_JWT_SECRET || "your-secret-key";
+const SECRET_KEY = process.env.NEXT_PUBLIC_JWT_SECRET || "secret-key";
 
 export function middleware(req: NextRequest) {
   const token = req.cookies.get("jwt-token")?.toString();
