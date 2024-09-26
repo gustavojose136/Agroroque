@@ -139,9 +139,9 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
           </div>
         </div>
         <div className="mr-10 flex justify-end gap-2">
-          <button className="bg-gray-100 relative z-40 mr-[150px] flex h-10 items-center justify-center rounded-full border border-black p-6 text-xl disabled:opacity-50"
+          <button className="bg-gray-100 relative z-40 mr-[70px] flex h-10 items-center justify-center rounded-full border border-black p-5 text-xl disabled:opacity-50"
           onClick={() => {redirectToLogin()}}>
-            ACESSAR
+            acessar
           </button>
           <button
             className="bg-gray-100 relative z-40 flex h-10 w-10 items-center justify-center rounded-full disabled:opacity-50"
