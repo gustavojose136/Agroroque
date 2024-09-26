@@ -12,6 +12,7 @@ import queryString from "query-string";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { jwtDecode } from "jwt-decode";
 
+
 const loginSchema = z.object({
   email: z
     .string()
@@ -49,11 +50,16 @@ const LoginForm = () => {
   }, [user]);
 
   const redirectLoggedUser = () => {
+
+
+    console.log("Redirecionando usuário log", user);
     if (!user) return;
 
     const queryStringified = queryString.stringify(user);
 
-    router.push(`/dashboard?${queryStringified}`);
+    console.log("Redirecionando usuário log", queryStringified);
+
+    router.push(`/dashboard`);
   };
 
   const {
@@ -65,36 +71,27 @@ const LoginForm = () => {
   });
 
   const onSubmit = async (loginData: User) => {
-    console.log(loginData);
-
     try {
       const response = await axios.post(API_ROUTE, loginData);
-      console.log("Login bem-sucedido:", response.data);
-
       const token = response.data.token;
-
+  
       if (token) {
         setStoredToken(token);
-
         decodeJwtAndSetUser(token);
       }
     } catch (error: any) {
-      console.error("Erro ao fazer login:", error.message || "");
-
-      if (error.response?.status === 404 || error.response?.status > 500)
-        setError("Servidor em manutenção. Tente novamente mais tarde.");
+      // Handle error
     }
-
-    redirectLoggedUser();
   };
 
   const decodeJwtAndSetUser = (token: string) => {
     const decoded: any = jwtDecode(token);
+    console.log("Decodificando token:", decoded);
     const decodedUser = {
-      id: decoded.id,
-      name: decoded.name,
-      email: decoded.email,
-      pic: decoded.picture,
+      id: decoded.nameid,
+      name: decoded.nameid,
+      email: decoded.nameid,
+      pic: decoded.nameid,
     };
     setUser(decodedUser);
   };

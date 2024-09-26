@@ -10,6 +10,7 @@ export default function Dashboard() {
   const searchParams = useSearchParams();
 
   useEffect(() => {
+    console.log("searchParams", searchParams);
     const loggedUser = {
       id: searchParams.get("id"),
       name: searchParams.get("name"), 
