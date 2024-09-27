@@ -12,15 +12,14 @@ interface ProductSectionProps {
 
 function ProductSection({ products, addItemToCart }: ProductSectionProps) {
   return (
-    <div className="grid grid-cols-3 auto-rows-auto gap-4 h-[600px] overflow-y-auto">
+    <div className="grid grid-cols-1 md:grid-cols-3 auto-rows-auto gap-4 h-[600px] overflow-y-auto px-2 w-full">
       {products.map((product, index) => (
         <div
           key={product.id}
-          className="border-gray-100 relative max-h-[284px] flex w-full max-w-xs flex-col overflow-hidden rounded-lg bg-white shadow-md"
+          className="border-gray-100 relative max-h-[284px] flex w-full max-w-sm md:max-w-xs flex-col rounded-lg bg-white shadow-md"
         >
-          <a
+          <div
             className="relative mx-3 mt-3 h-44 flex overflow-hidden rounded-xl"
-            href="#"
           >
             <Image
               src={"/images/shop/capacete.jpeg"}
@@ -36,7 +35,7 @@ function ProductSection({ products, addItemToCart }: ProductSectionProps) {
             <span className="absolute left-0 top-0 m-2 rounded-full bg-black px-2 text-center text-xs font-medium text-white">
               {product.category}
             </span>
-          </a>
+          </div>
           <div className="mt-4 flex flex-col gap-4 px-5 pb-5">
             <div className="flex w-full flex-row items-center justify-between">
               <h5 className="text-xl tracking-tight text-slate-900">

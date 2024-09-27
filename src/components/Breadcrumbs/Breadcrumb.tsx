@@ -4,12 +4,12 @@ interface BreadcrumbProps {
 }
 const Breadcrumb = ({ pageName }: BreadcrumbProps) => {
   return (
-    <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+    <div className="md:mt-0 mt-6 mb-6 flex gap-3 flex-row sm:items-center sm:justify-between">
       <h2 className="text-title-md2 font-semibold text-black dark:text-white">
         {pageName}
       </h2>
 
-      <nav>
+      <nav className="hidden md:block">
         <ol className="flex items-center gap-2">
           <li>
             {/* <Link className="font-medium" href="/">

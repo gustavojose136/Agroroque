@@ -12,9 +12,9 @@ const SignIn: React.FC = () => {
 
   return (
     <div className="flex h-screen w-screen items-center justify-center bg-[#F0F4F9] ">
-      <div className="w-full max-w-[60%] rounded-3xl border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+      <div className="w-full max-w-7xl md:max-w-5xl 2xl:max-w-[60%] rounded-3xl border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
         <div className="relative flex flex-wrap items-center">
-          <div className="hidden h-full min-h-full w-full items-center justify-center xl:flex xl:w-1/2">
+          <div className="hidden h-full min-h-full w-full items-center justify-center md:flex md:w-1/2">
             <div className="relative w-[450px] h-[250px] text-center">
               <Link className="mb-5.5 inline-block" href="/">
                 {/* // COLOCAR IMAGEM COM QUALIDADE MELHOR */}
@@ -38,7 +38,7 @@ const SignIn: React.FC = () => {
             </div>
           </div>
 
-          <div className="w-full border-stroke dark:border-strokedark xl:w-1/2 xl:border-l-2">
+          <div className="w-full border-stroke dark:border-strokedark md:w-1/2 xl:border-l-2">
             <LoginForm />
           </div>
         </div>

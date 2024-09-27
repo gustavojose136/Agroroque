@@ -12,7 +12,6 @@ import queryString from "query-string";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { jwtDecode } from "jwt-decode";
 
-
 const loginSchema = z.object({
   email: z
     .string()
@@ -29,7 +28,7 @@ const LoginForm = () => {
 
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const API_ROUTE = API_URL + "/login";
-  
+
   const [storedToken, setStoredToken] = useLocalStorage<string | null>(
     "token",
     null,
@@ -50,16 +49,11 @@ const LoginForm = () => {
   }, [user]);
 
   const redirectLoggedUser = () => {
-
-
-    console.log("Redirecionando usuário log", user);
     if (!user) return;
 
     const queryStringified = queryString.stringify(user);
 
-    console.log("Redirecionando usuário log", queryStringified);
-
-    router.push(`/dashboard`);
+    router.push(`/dashboard?${queryStringified}`);
   };
 
   const {
@@ -74,13 +68,17 @@ const LoginForm = () => {
     try {
       const response = await axios.post(API_ROUTE, loginData);
       const token = response.data.token;
-  
+
       if (token) {
         setStoredToken(token);
         decodeJwtAndSetUser(token);
       }
     } catch (error: any) {
-      // Handle error
+      setError("Aconteceu um erro, tente novamente.");
+
+      setTimeout(() => {
+        setError(null);
+      }, 2500);
     }
   };
 
@@ -103,7 +101,7 @@ const LoginForm = () => {
       </h2>
 
       {error ? (
-        <div className="mb-4 rounded-lg border border-rose-500 bg-rose-500 px-6 py-4 text-lg font-semibold text-white">
+        <div className="mb-4 rounded-lg border border-rose-400 bg-rose-300 px-6 py-4 text-lg font-semibold text-black">
           {error}
         </div>
       ) : (

@@ -8,8 +8,6 @@ export function middleware(req: NextRequest) {
   console.log("Middleware de autenticação");
   const token = req.cookies.get("token")?.toString();
 
-  console.log("Token:", token);
-
   if (!token) {
     console.log("Token não encontrado");
     return NextResponse.redirect(

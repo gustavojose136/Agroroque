@@ -1,15 +1,13 @@
 "use client";
 
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
-import Image from "next/image";
-import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
-import Link from "next/link";
-import { Icon } from "@iconify/react";
 import { useEffect, useState } from "react";
 import { Product } from "@/types/product";
 import CartSection from "@/components/shop/cartSection";
 import ProductSection from "@/components/shop/productsSection";
+import SuccessAlert from "@/components/ui/successAlert";
+import { Icon } from "@iconify/react";
 
 const DEFAULT: Product[] = [
   {
@@ -60,8 +58,12 @@ const DEFAULT: Product[] = [
 ];
 
 const ShopPage = () => {
+  const { showAlert } = SuccessAlert();
+
   const [productsCart, setproductsCart] = useState<Product[]>([]);
   const [products, setProducts] = useState<Product[]>(DEFAULT);
+
+  const [openCart, setOpenCart] = useState<boolean>(false);
 
   const addItemToCart = (product: Product) => {
     setproductsCart((prev) => {
@@ -80,23 +82,70 @@ const ShopPage = () => {
   const removeItemFromCart = (product: Product) => {
     setproductsCart((prev) => {
       const newCartList = prev.filter((item) => item.id !== product.id);
-  
+
       return newCartList;
     });
   };
 
+  const solicitar = () => {
+    showAlert(
+      "Solicitado!",
+      "Aguarde 24h para a solicitação ser avaliada. Obrigado.",
+    );
+  };
+
   return (
     <DefaultLayout>
-      <div className="flex flex-col gap-4">
+      <div className="relative flex flex-col gap-4">
         <Breadcrumb pageName="Shop" />
-        <div className="relative flex flex-row gap-10">
-          <div className="mx-auto flex max-w-242.5 justify-start">
+        <div className="relative flex flex-col gap-10 md:flex-row">
+          <div className="mx-auto flex max-w-242.5 w-full justify-start">
             <ProductSection products={products} addItemToCart={addItemToCart} />
           </div>
 
-          <CartSection productsCart={productsCart} removeItemFromCart={removeItemFromCart} />
+          <CartSection
+            productsCart={productsCart}
+            removeItemFromCart={removeItemFromCart}
+            solicitar={solicitar}
+            openCart={openCart}
+          />
+        </div>
+
+        <div className="absolute right-[1.5rem] top-[1rem] md:hidden">
+          <button
+            onClick={() => {
+              setOpenCart(!openCart);
+            }}
+            className="relative rounded-full bg-black p-4 "
+          >
+            <Icon
+              icon="tdesign:cart"
+              className="text-xl font-bold text-white"
+            />
+            {productsCart.length > 0 ? (
+              <span
+                className={
+                  "absolute right-0 top-[0rem] z-1 inline h-5 w-5 rounded-full bg-primary text-white text-sm"
+                }
+              >
+                {productsCart.length}
+              </span>
+            ) : (
+              ""
+            )}
+          </button>
         </div>
       </div>
+      {openCart ? (
+        <div
+          onClick={() => {
+            setOpenCart(false);
+          }}
+          className="absolute inset-0 z-40 bg-black/50 md:hidden"
+        ></div>
+      ) : (
+        ""
+      )}
     </DefaultLayout>
   );
 };
