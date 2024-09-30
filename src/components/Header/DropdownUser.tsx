@@ -1,16 +1,33 @@
-import { useState } from "react";
+import { use, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import ClickOutside from "@/components/ClickOutside";
 import { useRouter } from "next/navigation";
 import { Icon } from "@iconify/react";
+import { jwtDecode } from "jwt-decode";
 
 const DropdownUser = () => {
   const router = useRouter();
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
+  const token = localStorage.getItem("token");
+   
+  var userName = "";
+
+  if (token) {
+    const decoded: any = jwtDecode(token);
+    
+    const decodedUser = {
+      id: decoded.nameid,
+      name: decoded.nameid,
+      email: decoded.nameid,
+      pic: decoded.nameid,
+    };
+
+    userName = decodedUser.name;
+  }
+
   const logoutUser = () => {
-    const token = localStorage.getItem("token");
     if (token) {
       localStorage.removeItem("token");
     }
@@ -27,7 +44,7 @@ const DropdownUser = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            USUARIO NOME
+            {userName}
           </span>
         </span>
 

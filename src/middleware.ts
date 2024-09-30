@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 var jwt = require('jsonwebtoken');
 
+console.log("Middleware de autenticação");
 const SECRET_KEY = process.env.NEXT_PUBLIC_JWT_SECRET || "secret-key";
 console.log("SECRET_KEY:", SECRET_KEY);
 export function middleware(req: NextRequest) {
@@ -31,5 +32,6 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard", "/profile", "/settings"],
+  // matcher: ["/dashboard", "/profile", "/settings"],
+  matcher: [],
 };

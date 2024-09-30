@@ -76,6 +76,7 @@ const CartSection = ({
                     <p className="text-gray-500 mt-1 text-sm">
                       Cor: {product.color}
                     </p>
+                    
                   </div>
                   <div className="flex flex-1 items-end justify-between text-sm">
                     <p className="text-gray-500">Qntd {product.cartQntd}</p>

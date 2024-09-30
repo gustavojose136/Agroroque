@@ -18,6 +18,7 @@ const DEFAULT: Product[] = [
     category: "OBRIGATÓRIO",
     color: "Preto",
     stockQnt: 1,
+    size : "M",
   },
   {
     id: "1",
@@ -27,6 +28,7 @@ const DEFAULT: Product[] = [
     category: "OBRIGATÓRIO",
     color: "Branco",
     stockQnt: 1,
+    size: "M",
   },
   {
     id: "2",
@@ -36,6 +38,7 @@ const DEFAULT: Product[] = [
     category: "OBRIGATÓRIO",
     color: "Branco",
     stockQnt: 1,
+    size: "M",
   },
   {
     id: "3",
@@ -45,6 +48,7 @@ const DEFAULT: Product[] = [
     category: "OBRIGATÓRIO",
     color: "Branco",
     stockQnt: 1,
+    size: "M",
   },
   {
     id: "4",
@@ -54,6 +58,7 @@ const DEFAULT: Product[] = [
     category: "OBRIGATÓRIO",
     color: "Branco",
     stockQnt: 1,
+    size: "M",
   },
 ];
 
