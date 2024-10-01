@@ -1,9 +1,10 @@
 "use client";
 
+import { cn } from "@/lib/utils";
 import { Product } from "@/types/product";
 import { Icon } from "@iconify/react";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 interface ProductSectionProps {
   products: Product[];
@@ -11,12 +12,30 @@ interface ProductSectionProps {
 }
 
 function ProductSection({ products, addItemToCart }: ProductSectionProps) {
+  const [usefullProducts, setUsefullProducts] = useState<Product[]>(products);
+
+  const updateItemSize = (id: string, newSize: string) => {
+    setUsefullProducts((prev) => {
+      const newProductsList = prev.map((item) =>
+        item.id === id ? { ...item, size: newSize } : item,
+      );
+
+      return newProductsList;
+    });
+  };
+  
+  useEffect(() => {
+    //console.log(usefullProducts)
+  }, [usefullProducts]);
+
+  const sizes = ["PP", "P", "M", "G", "GG"];
+
   return (
-    <div className="grid h-[600px] w-full auto-rows-auto grid-cols-1 gap-4 overflow-y-auto px-2 md:grid-cols-3">
-      {products.map((product, index) => (
+    <div className="grid h-[600px] w-full auto-rows-auto grid-cols-1 gap-4 overflow-y-auto px-2 md:grid-cols-3 z-40">
+      {usefullProducts.map((product, index) => (
         <div
           key={product.id}
-          className="border-gray-100 relative flex max-h-[284px] w-full max-w-sm flex-col rounded-lg bg-white shadow-md md:max-w-xs"
+          className="border-gray-100 relative flex max-h-[284px] w-full max-w-sm flex-col rounded-lg bg-white shadow-md md:max-w-xs z-40"
         >
           <div className="relative mx-3 mt-3 flex h-44 overflow-hidden rounded-xl">
             <Image
@@ -36,15 +55,9 @@ function ProductSection({ products, addItemToCart }: ProductSectionProps) {
           </div>
           <div className="mt-4 flex flex-col gap-4 px-5 pb-5">
             <div className="flex w-full flex-row items-center justify-between">
-              <div className="flex flex-row items-center justify-center gap-1  align-middle">
-                <span className="font-semibold text-black">
-                  Tamanho: {product.size}
-                </span>
-              </div> <br/>
               <h5 className="text-xl tracking-tight text-slate-900">
                 {product.name}
               </h5>
-
               <div className="shadow-1 flex items-center justify-center rounded-xl border border-stroke px-2 py-1 drop-shadow-sm">
                 <div className="flex flex-row items-center justify-center gap-1  align-middle">
                   <span className="font-semibold text-black">
@@ -53,6 +66,25 @@ function ProductSection({ products, addItemToCart }: ProductSectionProps) {
                   <span className="text-sm">Estoque</span>
                 </div>
               </div>
+            </div>
+
+            <div className="flex flex-row gap-2 ">
+              {sizes.map((item) => (
+                <button
+                  key={item}
+                  className={cn(
+                    "flex w-full items-center justify-center rounded-md p-2.5 text-center text-xs font-medium text-white focus:outline-none",
+                    item === product.size
+                      ? "bg-slate-800 hover:bg-slate-950"
+                      : "border border-slate-200 bg-white text-black hover:bg-slate-200",
+                  )}
+                  onClick={() => {
+                    updateItemSize(product.id, item);
+                  }}
+                >
+                  {item}
+                </button>
+              ))}
             </div>
 
             <button

@@ -21,9 +21,9 @@ export default function RootLayout({
   }, []);
 
   return (
-    <html lang="en">
-      <body suppressHydrationWarning={true}>
-        <div className="dark:bg-boxdark-2 dark:text-bodydark">
+    <html lang="en" className="h-screen max-w-screen overflox-x-clip">
+      <body suppressHydrationWarning={true} className="h-full">
+        <div className="dark:bg-boxdark-2 dark:text-bodydark h-full">
           {loading ? <Loader /> : children}
         </div>
       </body>

@@ -5,7 +5,7 @@ export type Product = {
   name?: string;
   category?: string;
   color?: string;
-  stockQnt?: number;
+  stockQnt: number;
   cartQntd?: number;
-  size?: string;
+  size: string;
 };
