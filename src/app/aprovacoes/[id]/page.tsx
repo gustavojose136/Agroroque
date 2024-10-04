@@ -13,7 +13,6 @@ export default function SolicitacaoPage({
   const router = useRouter();
   const { id } = params;
 
-  // Fetch or logic to handle `id`
   return (
     <DefaultLayout>
       <div>

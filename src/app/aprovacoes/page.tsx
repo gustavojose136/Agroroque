@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     "This is Next.js Tables page for TailAdmin - Next.js Tailwind CSS Admin Dashboard Template",
 };
 
-const Titles = ["Colaborador", "Itens", "Status", "Data", "Ações"];
+const Titles = ["Colaborador", "Itens", "Status", "Data Solicitação", "Data Aprovação", "Ações Rapidas"];
 
 const itens: Solicitacao[] = [
   {
@@ -24,28 +24,32 @@ const itens: Solicitacao[] = [
     colaborador: "Joao Kleber",
     status: "Pendente",
     itens: 3,
-    data: "Jan 06,2024",
+    dataSol: "Jan 06,2024",
+    dataApro: "Esperando avaliação...",
   },
   {
     id: "2",
     colaborador: "Maria da Penha",
     status: "Pendente",
     itens: 3,
-    data: "Jan 06,2024",
+    dataSol: "Jan 06,2024",
+    dataApro: "Esperando avaliação...",
   },
   {
     id: "3",
     colaborador: "Agostinho Carrara",
     status: "Pendente",
     itens: 3,
-    data: "Jan 06,2024",
+    dataSol: "Jan 06,2024",
+    dataApro: "Esperando avaliação...",
   },
   {
     id: "2",
     colaborador: "Jeff Bezos",
     status: "Pendente",
     itens: 3,
-    data: "Jan 06,2024",
+    dataSol: "Jan 06,2024",
+    dataApro: "Esperando avaliação...",
   }
   
 ];

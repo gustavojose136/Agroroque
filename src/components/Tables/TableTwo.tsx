@@ -7,36 +7,36 @@ const productData: Product[] = [
     imageSrc: "/images/product/product-01.png",
     name: "Apple Watch Series 7",
     category: "Electronics",
-    price: 296,
-    sold: 22,
-    profit: 45,
+    color: "branco",
+    cartQntd: 5,
+    size: "M",
   },
   {
     id: "1",
     imageSrc: "/images/product/product-02.png",
-    name: "Macbook Pro M1",
+    name: "Apple Watch Series 7",
     category: "Electronics",
-    price: 546,
-    sold: 12,
-    profit: 125,
+    color: "branco",
+    cartQntd: 5,
+    size: "M",
   },
   {
     id: "1",
     imageSrc: "/images/product/product-03.png",
-    name: "Dell Inspiron 15",
+    name: "Apple Watch Series 7",
     category: "Electronics",
-    price: 443,
-    sold: 64,
-    profit: 247,
+    color: "branco",
+    cartQntd: 5,
+    size: "M",
   },
   {
     id: "1",
     imageSrc: "/images/product/product-04.png",
-    name: "HP Probook 450",
+    name: "Apple Watch Series 7",
     category: "Electronics",
-    price: 499,
-    sold: 72,
-    profit: 103,
+    color: "branco",
+    cartQntd: 5,
+    size: "M",
   },
 ];
 
@@ -51,19 +51,19 @@ const TableTwo = () => {
 
       <div className="grid grid-cols-6 border-t border-stroke px-4 py-4.5 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5">
         <div className="col-span-3 flex items-center">
-          <p className="font-medium">Product Name</p>
+          <p className="font-medium">Produto</p>
         </div>
         <div className="col-span-2 hidden items-center sm:flex">
-          <p className="font-medium">Category</p>
+          <p className="font-medium">Categoria</p>
         </div>
         <div className="col-span-1 flex items-center">
-          <p className="font-medium">Price</p>
+          <p className="font-medium">Cor</p>
         </div>
         <div className="col-span-1 flex items-center">
-          <p className="font-medium">Sold</p>
+          <p className="font-medium">Tamanho</p>
         </div>
         <div className="col-span-1 flex items-center">
-          <p className="font-medium">Profit</p>
+          <p className="font-medium">Quantidade</p>
         </div>
       </div>
 
@@ -76,7 +76,11 @@ const TableTwo = () => {
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
               <div className="h-12.5 w-15 rounded-md">
                 <Image
-                  src={product.imageSrc? product.imageSrc : "/images/product/product-01.png"}
+                  src={
+                    product.imageSrc
+                      ? product.imageSrc
+                      : "/images/product/product-01.png"
+                  }
                   width={60}
                   height={50}
                   alt="Product"
@@ -94,14 +98,14 @@ const TableTwo = () => {
           </div>
           <div className="col-span-1 flex items-center">
             <p className="text-sm text-black dark:text-white">
-              ${product.price}
+              {product.color}
             </p>
           </div>
           <div className="col-span-1 flex items-center">
-            <p className="text-sm text-black dark:text-white">{product.sold}</p>
+            <p className="text-sm text-black dark:text-white">{product.size}</p>
           </div>
           <div className="col-span-1 flex items-center">
-            <p className="text-sm text-meta-3">${product.profit}</p>
+            <p className="text-sm">{product.cartQntd}</p>
           </div>
         </div>
       ))}

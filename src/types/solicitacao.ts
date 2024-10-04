@@ -3,5 +3,6 @@ export type Solicitacao = {
     colaborador: string;
     status: string;
     itens: number;
-    data: string;
+    dataSol: string;
+    dataApro: string
 };

@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { Package } from "@/types/package";
 import { ITableOneProps } from "./TableOne";
@@ -7,7 +7,7 @@ import { Icon } from "@iconify/react";
 import { useRouter } from "next/navigation";
 
 export interface ITableThreeProps {
-  ItensName: string[];  
+  ItensName: string[];
   Itens: Solicitacao[];
 }
 
@@ -38,7 +38,7 @@ const TableThree = ({ ItensName, Itens }: ITableThreeProps) => {
           </thead>
           <tbody>
             {Itens.map((packageItem, key) => (
-              <tr key={key}>
+              <tr key={key} onClick={() => handleViewClick(packageItem.id)} className="hover:bg-gray-3 cursor-pointer">
                 <td className="border-b border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11">
                   <h5 className="font-medium text-black dark:text-white">
                     {packageItem.colaborador}
@@ -55,8 +55,8 @@ const TableThree = ({ ItensName, Itens }: ITableThreeProps) => {
                       packageItem.status === "Paid"
                         ? "bg-success text-success"
                         : packageItem.status === "Unpaid"
-                        ? "bg-danger text-danger"
-                        : "bg-warning text-warning"
+                          ? "bg-danger text-danger"
+                          : "bg-warning text-warning"
                     }`}
                   >
                     {packageItem.status}
@@ -64,7 +64,12 @@ const TableThree = ({ ItensName, Itens }: ITableThreeProps) => {
                 </td>
                 <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                   <p className="text-black dark:text-white">
-                    {packageItem.data}
+                    {packageItem.dataSol}
+                  </p>
+                </td>
+                <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                  <p className="text-black dark:text-white">
+                    {packageItem.dataApro}
                   </p>
                 </td>
                 <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
@@ -75,12 +80,12 @@ const TableThree = ({ ItensName, Itens }: ITableThreeProps) => {
                     <button className="hover:text-primary">
                       <Icon icon="dashicons:no" className="text-2xl" />
                     </button>
-                    <button
+                    {/* <button
                       className="hover:text-primary"
                       onClick={() => handleViewClick(packageItem.id)} // Redireciona com o ID
                     >
                       <Icon icon="mdi:eye-outline" className="text-2xl" />
-                    </button>
+                    </button> */}
                   </div>
                 </td>
               </tr>
