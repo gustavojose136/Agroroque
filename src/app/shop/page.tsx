@@ -24,7 +24,7 @@ const DEFAULT: Product[] = [
     id: "1",
     imageSrc: "/images/shop/capacete.jpeg",
     imageAlt: "capecete",
-    name: "Capacete",
+    name: "Luva",
     category: "OBRIGATÓRIO",
     color: "Branco",
     stockQnt: 1,
@@ -110,9 +110,9 @@ const ShopPage = () => {
 
   return (
     <DefaultLayout>
-      <div className="relative flex flex-col gap-4">
+      <div className="relative flex flex-col gap-4 h-full">
         <Breadcrumb pageName="Shop" />
-        <div className="relative flex flex-col gap-10 md:flex-row">
+        <div className="relative flex flex-col gap-10 md:flex-row h-full">
           <div className="mx-auto flex w-full max-w-242.5 justify-start md:pr-16 xl:pr-0">
             <ProductSection products={products} addItemToCart={addItemToCart} />
           </div>
@@ -158,7 +158,7 @@ const ShopPage = () => {
           onClick={() => {
             setOpenCart(false);
           }}
-          className="absolute inset-0 z-40 bg-black/50 lg:hidden"
+          className="absolute inset-0 z-40 bg-black/50 2xl:hidden"
         ></div>
       ) : (
         ""

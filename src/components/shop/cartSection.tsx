@@ -34,11 +34,14 @@ const CartSection = ({
     if (cartDiv) {
       if (!openCart) {
         cartDiv.classList.remove("translate-x-1/2");
-        cartDiv.classList.add("translate-x-[100vw]", "lg:translate-x-[70vw]");
+        cartDiv.classList.add(
+          "translate-x-[100vw]",
+          "lg:translate-x-[calc(100vw-350px)]",
+        );
       } else {
         cartDiv.classList.remove(
           "translate-x-[100vw]",
-          "lg:translate-x-[70vw]",
+          "lg:translate-x-[calc(100vw-350px)]",
         );
         cartDiv.classList.add("translate-x-1/2");
       }
@@ -48,14 +51,16 @@ const CartSection = ({
   return (
     <div
       id="cartDiv"
-      className="absolute z-50 flex h-auto max-h-[700px] min-w-[250px] max-w-[450px] flex-grow flex-col rounded-xl border border-gray/75 bg-white shadow-xl transition-all duration-500 2xl:relative 2xl:translate-x-0 3xl:max-h-[920px]"
+      className="absolute z-50 flex h-auto max-h-[700px] min-w-[250px] max-w-[450px] flex-grow flex-col rounded-xl border border-gray/75 bg-white shadow-xl transition-transform duration-500 2xl:relative 2xl:translate-x-0 3xl:max-h-[920px]"
     >
       <div className="z-50 flex-1 px-4 py-6 sm:px-6">
         <div className="flex flex-col items-start justify-between gap-2">
-          <div className="flex flex-row justify-between items-center gap-2 w-full">
+          <div className="flex w-full flex-row items-center justify-between gap-2">
             <h1 className="text-gray-900 text-xl font-medium">Carrinho</h1>
             <Icon
-            onClick={() => {setOpenCart(false)}}
+              onClick={() => {
+                setOpenCart(false);
+              }}
               icon="zondicons:close"
               className="text-xl font-bold text-black lg:hidden"
             />
@@ -150,7 +155,7 @@ const CartSection = ({
       <div className="absolute left-[-2rem] top-[2rem] z-50 hidden lg:block 2xl:hidden">
         <button
           onClick={() => {
-           setOpenCart(!openCart)
+            setOpenCart(!openCart);
           }}
           className="relative rounded-full bg-black p-4 "
         >

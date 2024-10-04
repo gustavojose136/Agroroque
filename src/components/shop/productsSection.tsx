@@ -31,22 +31,17 @@ function ProductSection({ products, addItemToCart }: ProductSectionProps) {
   const sizes = ["PP", "P", "M", "G", "GG"];
 
   return (
-    <div className="grid h-[600px] w-full auto-rows-auto grid-cols-1 gap-4 overflow-y-auto px-2 md:grid-cols-3 z-40">
+    <div className="grid w-full h-full auto-rows-auto grid-cols-1 gap-4 overflow-y-auto px-2 md:grid-cols-3 z-40">
       {usefullProducts.map((product, index) => (
         <div
           key={product.id}
-          className="border-gray-100 relative flex max-h-[284px] w-full max-w-sm flex-col rounded-lg bg-white shadow-md md:max-w-xs z-40"
+          className="border-gray-100 relative flex max-h-[350px] w-full max-w-sm flex-col rounded-lg bg-white shadow-md md:max-w-xs z-40"
         >
-          <div className="relative mx-3 mt-3 flex h-44 overflow-hidden rounded-xl">
+          <div className="relative mx-3 mt-3 flex min-h-40 overflow-hidden rounded-xl">
             <Image
               src={"/images/shop/capacete.jpeg"}
-              width={160}
-              height={160}
-              style={{
-                width: "auto",
-                height: "auto",
-                objectFit: "cover",
-              }}
+              layout="fill"
+              objectFit="cover" 
               alt="profile"
             />
             <span className="absolute left-0 top-0 m-2 rounded-full bg-black px-2 text-center text-xs font-medium text-white">
