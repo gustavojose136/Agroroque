@@ -91,7 +91,7 @@ const Gerenciamento = () => {
 
   return (
     <DefaultLayout>
-      <Breadcrumb pageName="Aprovações" />
+      <Breadcrumb pageName="Gerenciamento" />
       <div className="flex flex-col gap-10">
         <TableThreeUser
           tableNames={Titles}

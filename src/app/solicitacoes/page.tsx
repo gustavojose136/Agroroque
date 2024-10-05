@@ -8,24 +8,41 @@ import { Solicitacao } from "@/types/solicitacao";
 import axios from "axios";
 import { showErrorAlert } from "@/components/ui/successAlert";
 import { useEffect, useState } from "react";
+import Cookies from "js-cookie";
 
-const Titles = ["Colaborador", "Itens", "Status", "Data Solicitação", "Data Aprovação", "Ações Rapidas"];
+const Titles = [
+  "Colaborador",
+  "Itens",
+  "Status",
+  "Data Solicitação",
+  "Data Aprovação",
+  "Ações Rapidas",
+];
 
 const TablesPage = () => {
-  const [data, setData] = useState<Solicitacao[]>([]);
+  const [solicitacoes, setSolicitacoes] = useState<Solicitacao[]>([]);
 
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
-  const API_ROUTE = `${API_URL}/SolicitacaoEquipamento`;
 
   const getSolicitacoes = async () => {
+    const API_ROUTE = `${API_URL}/SolicitacaoEquipamento`;
     try {
-      const response = await axios.get(API_ROUTE);
+      const token = Cookies.get("token");
+      const response = await axios.get(API_ROUTE, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       console.log(response.data);
-      const produtos = response.data.produtos?.[0]?.produtos?.[0]?.produtos || [];
-      setData(produtos);
+      const produtos =
+        response.data.produtos?.[0]?.produtos?.[0]?.produtos || [];
+      setSolicitacoes(produtos);
     } catch (error: any) {
       console.error("Erro ao carregar os produtos:", error);
-      showErrorAlert("Erro!", "Aconteceu um erro ao carregar os produtos. Tente novamente.");
+      showErrorAlert(
+        "Erro!",
+        "Aconteceu um erro ao carregar os produtos. Tente novamente.",
+      );
     }
   };
 
