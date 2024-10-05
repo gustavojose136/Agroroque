@@ -26,7 +26,7 @@ type Card = {
   src: string;
   title: string;
   category: string;
-  content: React.ReactNode;
+  content?: React.ReactNode;
 };
 
 export const CarouselContext = createContext<{
@@ -111,7 +111,7 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
           <div
             className={cn(
               "flex flex-row justify-start gap-4 pl-4",
-              "mx-auto max-w-7xl", // remove max-w-4xl if you want the carousel to span the full width of its container
+              "mx-auto max-w-6xl", // remove max-w-4xl if you want the carousel to span the full width of its container
             )}
           >
             {items.map((item, index) => (
@@ -139,10 +139,6 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
           </div>
         </div>
         <div className="mr-10 flex justify-end gap-2">
-          <button className="bg-gray-100 relative z-40 mr-[70px] flex h-10 items-center justify-center rounded-full border border-black p-5 text-xl disabled:opacity-50"
-          onClick={() => {redirectToLogin()}}>
-            acessar
-          </button>
           <button
             className="bg-gray-100 relative z-40 flex h-10 w-10 items-center justify-center rounded-full disabled:opacity-50"
             onClick={scrollLeft}
@@ -248,7 +244,7 @@ export const Card = ({
       </AnimatePresence>
       <motion.button
         layoutId={layout ? `card-${card.title}` : undefined}
-        onClick={handleOpen}
+        //onClick={handleOpen}
         className="bg-gray-100 relative z-10 flex h-80 w-56 flex-col items-start justify-start overflow-hidden rounded-3xl dark:bg-neutral-900 md:h-[40rem] md:w-96"
       >
         <div className="pointer-events-none absolute inset-x-0 top-0 z-30 h-full bg-gradient-to-b from-black/50 via-transparent to-transparent" />

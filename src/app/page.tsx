@@ -40,18 +40,8 @@ export default function Home() {
             </div>
             <div className="flex items-stretch justify-center">
               <div className="flex h-full flex-row pr-6">
-                <div className="flex w-1/2 flex-col gap-6 px-20">
-                  <p className="text-gray-600 text-balance text-start text-lg dark:text-slate-400">
-                    Nossa equipe está pronta para atender suas necessidades com
-                    segurança e eficiência.
-                    <br />
-                     Entre em contato para saber mais ou
-                    solicitar um orçamento.
-                  </p>
-                </div>
-
-                <div className="flex w-1/2 justify-end px-20">
-                  <ul className="flex flex-col gap-4">
+                <div className="flex w-full justify-end px-20">
+                  <ul className="flex flex-col gap-5">
                     <li className="flex">
                       <div className="text-gray-50 rounde-xl flex h-10 w-10 items-center justify-center bg-accent">
                         <svg
