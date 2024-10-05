@@ -24,6 +24,7 @@ export default function CustomSelect({
   id,
 }: CustomSelectProps) {
   const [selected, setSelected] = useState(selectedRole);
+  const [newSelected, setNewSelected] = useState('');
 
 
   useEffect(() => {
@@ -31,11 +32,11 @@ export default function CustomSelect({
   }, []);
 
   useEffect(() => {
-    selectChange(id);
-  }, [selected]);
+    if(newSelected !== '') selectChange(id);
+  }, [newSelected]);
 
   return (
-    <Listbox value={selected} onChange={setSelected}>
+    <Listbox defaultValue={selected} value={newSelected} onChange={setNewSelected}>
       <div className="relative mt-2">
         <ListboxButton className="text-gray-900 ring-gray-300 relative w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left shadow-sm ring-1 ring-inset focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6">
           <span className="flex items-center">

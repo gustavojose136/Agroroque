@@ -8,6 +8,7 @@ import { showErrorAlert } from "@/components/ui/successAlert";
 import { useEffect, useState } from "react";
 import { User } from "@/types/user";
 import TableThreeUser from "@/components/Tables/TableThreeUser";
+import Cookies from "js-cookie";
 
 enum Role {
   Funcionario = 1,
@@ -19,19 +20,22 @@ enum Role {
 const Titles = ["Colaborador", "Função"];
 
 const Gerenciamento = () => {
-  const [users, setUsers] = useState<User[]>([]);
+  const [users, setUsers] = useState<User[]>([{ id: -1, name: "" },{ id: -1, name: "" },{ id: -1, name: "" }]);
 
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
-  const API_ROUTE = `${API_URL}/Usuario`;
+
+  useEffect(() => {}, users);
 
   const getUsers = async () => {
-    console.log(API_ROUTE)
-
+    const API_ROUTE = `${API_URL}/Usuario`;
     try {
-      const response = await axios.get(API_ROUTE);
-      console.log(response.data);
-      const users = response.data.users || [];
-      if(users) setUsers(users);
+      const token = Cookies.get("token");
+      const response = await axios.get(API_ROUTE, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setUsers(response.data);
     } catch (error: any) {
       console.error("Erro ao carregar os colaboradores:", error);
       showErrorAlert(
@@ -42,11 +46,15 @@ const Gerenciamento = () => {
   };
 
   const updateUser = async (user: User) => {
+    const API_ROUTE = `${API_URL}/Usuario/${user.id}`;
     try {
-      const API_URL = process.env.NEXT_PUBLIC_API_URL;
-      const API_ROUTE = `${API_URL}/updateUser`;
+      const token = Cookies.get("token");
+      const response = await axios.put(API_ROUTE, user, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-      const response = await axios.put(API_ROUTE, user);
       console.log(response.data);
     } catch (error: any) {
       console.error("Erro ao atualizar o colaborador:", error);
@@ -78,14 +86,18 @@ const Gerenciamento = () => {
 
   const usersWithRoles = users.map((user) => ({
     ...user,
-    roleName: getRoleString(user.role),
+    roleName: getRoleString(user.perfilUsuario),
   }));
 
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Aprovações" />
       <div className="flex flex-col gap-10">
-        <TableThreeUser tableNames={Titles} itens={usersWithRoles}  updateUser={updateUser}/>
+        <TableThreeUser
+          tableNames={Titles}
+          itens={usersWithRoles}
+          updateUser={updateUser}
+        />
       </div>
     </DefaultLayout>
   );

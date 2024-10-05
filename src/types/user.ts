@@ -7,6 +7,7 @@ export type User = {
     token?: string,
     phone?: string,
     role?: number
-    roleName?:string
+    roleName?:string,
+    perfilUsuario?: number
 };
   
