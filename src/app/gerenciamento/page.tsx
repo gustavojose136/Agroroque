@@ -20,11 +20,34 @@ enum Role {
 const Titles = ["Colaborador", "Função"];
 
 const Gerenciamento = () => {
-  const [users, setUsers] = useState<User[]>([{ id: -1, name: "" },{ id: -1, name: "" },{ id: -1, name: "" }]);
+  const [users, setUsers] = useState<User[]>([
+    { id: -1, nome: "" },
+    { id: -1, nome: "" },
+    { id: -1, nome: "" },
+  ]);
+
+  const [usersRoles, setUsersRoles] = useState<User[]>([
+    { id: -1, nome: "" },
+    { id: -1, nome: "" },
+    { id: -1, nome: "" },
+  ]);
 
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-  useEffect(() => {}, users);
+  useEffect(() => {
+    if (users) {
+      const usersWithRoles = users.map((user) => ({
+        ...user,
+        roleName: getRoleString(user.perfilUsuario),
+      }));
+
+      setUsersRoles(usersWithRoles);
+    }
+  }, [users]);
+
+  useEffect(() => {
+    console.log(usersRoles);
+  }, [usersRoles]);
 
   const getUsers = async () => {
     const API_ROUTE = `${API_URL}/Usuario`;
@@ -46,16 +69,25 @@ const Gerenciamento = () => {
   };
 
   const updateUser = async (user: User) => {
-    const API_ROUTE = `${API_URL}/Usuario/${user.id}`;
+    const API_URL = process.env.NEXT_PUBLIC_API_URL; 
+    const API_ROUTE = `${API_URL}/Usuario`; 
+
     try {
       const token = Cookies.get("token");
+
+      if (!token) {
+        throw new Error("Token não encontrado");
+      }
+
       const response = await axios.put(API_ROUTE, user, {
         headers: {
           Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
       });
 
-      console.log(response.data);
+      console.log("Resposta da API:", response.data);
+
     } catch (error: any) {
       console.error("Erro ao atualizar o colaborador:", error);
       showErrorAlert(
@@ -84,18 +116,13 @@ const Gerenciamento = () => {
     }
   }
 
-  const usersWithRoles = users.map((user) => ({
-    ...user,
-    roleName: getRoleString(user.perfilUsuario),
-  }));
-
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Gerenciamento" />
       <div className="flex flex-col gap-10">
         <TableThreeUser
           tableNames={Titles}
-          itens={usersWithRoles}
+          itens={usersRoles}
           updateUser={updateUser}
         />
       </div>

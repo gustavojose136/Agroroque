@@ -12,7 +12,7 @@ import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 
 interface CustomSelectProps {
   items: string[];
-  selectedRole: string;
+  selectedRole: string | undefined;
   selectChange: (id: number) => void;
   id: number;
 }
@@ -24,19 +24,32 @@ export default function CustomSelect({
   id,
 }: CustomSelectProps) {
   const [selected, setSelected] = useState(selectedRole);
-  const [newSelected, setNewSelected] = useState('');
+  const [newSelected, setNewSelected] = useState("");
 
-
-  useEffect(() => {
-    //console.log(items)
-  }, []);
+  const [listItens, setListItens] = useState<string[]>([]);
 
   useEffect(() => {
-    if(newSelected !== '') selectChange(id);
+    setListItens(items);
+  }, [items]);
+
+  useEffect(() => {
+    setSelected(selectedRole);
+  }, [selectedRole]);
+
+  useEffect(() => {
+    if (newSelected !== "") selectChange(id);
   }, [newSelected]);
 
+  const handleChange = (e: any) => {
+    setNewSelected(e);
+  };
+
   return (
-    <Listbox defaultValue={selected} value={newSelected} onChange={setNewSelected}>
+    <Listbox
+      defaultValue={selected}
+      value={newSelected}
+      onChange={handleChange}
+    >
       <div className="relative mt-2">
         <ListboxButton className="text-gray-900 ring-gray-300 relative w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left shadow-sm ring-1 ring-inset focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6">
           <span className="flex items-center">
@@ -54,7 +67,7 @@ export default function CustomSelect({
           transition
           className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none data-[closed]:data-[leave]:opacity-0 data-[leave]:transition data-[leave]:duration-100 data-[leave]:ease-in sm:text-sm"
         >
-          {items.map((item, key) => (
+          {listItens.map((item, key) => (
             <ListboxOption
               key={key}
               value={item}

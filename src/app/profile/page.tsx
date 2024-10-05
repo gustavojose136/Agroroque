@@ -78,7 +78,7 @@ const Profile = () => {
     if (token) {
       const decoded: User = jwtDecode(token);
       setInitialFormValues({
-        name: decoded.name || "",
+        name: decoded.nome || "",
         email: decoded.email || "",
         phone: decoded.phone || "",
         password: "********",
