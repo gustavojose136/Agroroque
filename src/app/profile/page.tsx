@@ -59,7 +59,7 @@ const Profile = () => {
       password: "********",
     });
 
-    //ENVIAR PRO BACKEND o
+    //ENVIAR PRO BACKEND
   };
 
   const handleCancel = () => {
