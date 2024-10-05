@@ -72,7 +72,7 @@ const menuGroups = [
       {
         icon: <Icon icon="material-symbols:order-approve" className="text-2xl"/>,
         label: "Solicitações",
-        route: "/aprovacoes",
+        route: "/solicitacoes",
       },
       {
         icon: <Icon icon="material-symbols:order-approve" className="text-2xl"/>,
@@ -82,7 +82,7 @@ const menuGroups = [
       {
         icon: <Icon icon="ph:gear" className="text-2xl"/>,
         label: "Gerenciamento de usuários",
-        route: "/settings",
+        route: "/gerenciamento",
       },
     ],
   },
