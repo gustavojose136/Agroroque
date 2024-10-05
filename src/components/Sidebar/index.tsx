@@ -71,12 +71,17 @@ const menuGroups = [
       },
       {
         icon: <Icon icon="material-symbols:order-approve" className="text-2xl"/>,
-        label: "Aprovações",
+        label: "Solicitações",
+        route: "/aprovacoes",
+      },
+      {
+        icon: <Icon icon="material-symbols:order-approve" className="text-2xl"/>,
+        label: "Cadastrar Usuário",
         route: "/aprovacoes",
       },
       {
         icon: <Icon icon="ph:gear" className="text-2xl"/>,
-        label: "Configurações",
+        label: "Gerenciamento de usuários",
         route: "/settings",
       },
     ],

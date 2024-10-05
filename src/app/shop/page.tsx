@@ -8,75 +8,43 @@ import CartSection from "@/components/shop/cartSection";
 import ProductSection from "@/components/shop/productsSection";
 import { Icon } from "@iconify/react";
 import { showErrorAlert, showSuccessAlert } from "@/components/ui/successAlert";
+import axios from "axios";
 
-const DEFAULT: Product[] = [
-  {
-    id: "0",
-    imageSrc: "/images/shop/capacete.jpeg",
-    imageAlt: "capecete",
-    name: "Capacete",
-    category: "OBRIGATÓRIO",
-    color: "Preto",
-    stockQnt: 1,
-    size: "P",
-  },
-  {
-    id: "1",
-    imageSrc: "/images/shop/capacete.jpeg",
-    imageAlt: "capecete",
-    name: "Luva",
-    category: "OBRIGATÓRIO",
-    color: "Branco",
-    stockQnt: 1,
-    size: "P",
-  },
-  {
-    id: "2",
-    imageSrc: "/images/shop/capacete.jpeg",
-    imageAlt: "capecete",
-    name: "Capacete",
-    category: "OBRIGATÓRIO",
-    color: "Branco",
-    stockQnt: 1,
-    size: "P",
-  },
-  {
-    id: "3",
-    imageSrc: "/images/shop/capacete.jpeg",
-    imageAlt: "capecete",
-    name: "Capacete",
-    category: "OBRIGATÓRIO",
-    color: "Branco",
-    stockQnt: 1,
-    size: "P",
-  },
-  {
-    id: "4",
-    imageSrc: "/images/shop/capacete.jpeg",
-    imageAlt: "capecete",
-    name: "Capacete",
-    category: "OBRIGATÓRIO",
-    color: "Branco",
-    stockQnt: 1,
-    size: "P",
-  },
-];
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+const API_ROUTE = API_URL + "/Equipamento";
 
 const ShopPage = () => {
   const [productsCart, setproductsCart] = useState<Product[]>([]);
-  const [products, setProducts] = useState<Product[]>(DEFAULT);
-
+  const [products, setProducts] = useState<Product[]>([]);
   const [openCart, setOpenCart] = useState<boolean>(false);
+
+  // Função para carregar os produtos
+  const getProdutos = async () => {
+    try {
+      const response = await axios.get(API_ROUTE); // Chama a API para obter os produtos
+      console.log(response.data);
+      const produtos = response.data.produtos[0].produtos[0].produtos;
+      setProducts(produtos); // Atualiza o estado com os produtos recebidos da API
+    } catch (error: any) {
+      console.error("Erro ao carregar os produtos:", error);
+      showErrorAlert("Erro!", "Aconteceu um erro ao carregar os produtos. Tente novamente.");
+    }
+  };
+
+  // useEffect para carregar os produtos assim que a página for carregada
+  useEffect(() => {
+    getProdutos(); // Chama a função ao carregar a página
+  }, []); // O array vazio [] garante que isso só será executado uma vez, quando o componente for montado
 
   const addItemToCart = (product: Product) => {
     setproductsCart((prev) => {
       const newCartList = prev.some(
-        (item) => item.id === product.id && item.size === product.size,
+        (item) => item.id === product.id && item.size === product.size
       )
         ? prev.map((item: Product) =>
             item.id === product.id && item.size === product.size
               ? { ...item, cartQntd: (item.cartQntd || 0) + 1 }
-              : item,
+              : item
           )
         : [...prev, { ...product, cartQntd: 1 }];
 
@@ -87,7 +55,7 @@ const ShopPage = () => {
   const removeItemFromCart = (product: Product) => {
     setproductsCart((prev) => {
       const newCartList = prev.filter(
-        (item) => !(item.id === product.id && item.size === product.size),
+        (item) => !(item.id === product.id && item.size === product.size)
       );
 
       return newCartList;
@@ -101,10 +69,9 @@ const ShopPage = () => {
       return showErrorAlert("Opss!", "O carrinho está vazio, selecione algo para solicitar.");
     }
 
-    
     showSuccessAlert(
       "Solicitado!",
-      "Aguarde 24h para a solicitação ser avaliada. <br>Obrigado.",
+      "Aguarde 24h para a solicitação ser avaliada. <br>Obrigado."
     );
   };
 
@@ -134,10 +101,7 @@ const ShopPage = () => {
             }}
             className="relative rounded-full bg-black p-4 "
           >
-            <Icon
-              icon="tdesign:cart"
-              className="text-xl font-bold text-white"
-            />
+            <Icon icon="tdesign:cart" className="text-xl font-bold text-white" />
             {productsCart.length > 0 ? (
               <span
                 className={

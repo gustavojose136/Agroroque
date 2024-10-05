@@ -12,10 +12,21 @@ interface ProductSectionProps {
 }
 
 function ProductSection({ products, addItemToCart }: ProductSectionProps) {
+  console.log(products);
   const [usefullProducts, setUsefullProducts] = useState<Product[]>(products);
 
+  useEffect(() => {
+    setUsefullProducts(products);
+  }, [products]);
+  
+  console.log(usefullProducts);
+  
+
   const updateItemSize = (id: string, newSize: string) => {
+    console.log(id, newSize);
     setUsefullProducts((prev) => {
+      console.log(prev)
+      console.log(prev)
       const newProductsList = prev.map((item) =>
         item.id === id ? { ...item, size: newSize } : item,
       );
@@ -30,6 +41,8 @@ function ProductSection({ products, addItemToCart }: ProductSectionProps) {
 
   const sizes = ["PP", "P", "M", "G", "GG"];
 
+  console.log(products);
+  console.log(usefullProducts);
   return (
     <div className="grid w-full h-full auto-rows-auto grid-cols-1 gap-4 overflow-y-auto px-2 md:grid-cols-3 z-40">
       {usefullProducts.map((product, index) => (
