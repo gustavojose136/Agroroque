@@ -98,7 +98,9 @@ const LoginForm = () => {
               {...register("email")}
             />
             {errors.email && (
-              <p className="text-red-500 mt-2">{errors.email.message}</p>
+              <p className="mt-2 text-sm text-rose-500">
+                {errors.email.message}
+              </p>
             )}
             <span className="absolute right-4 top-4">
               <svg
@@ -134,7 +136,9 @@ const LoginForm = () => {
               {...register("password")}
             />
             {errors.password && (
-              <p className="text-red-500 mt-2">{errors.password.message}</p>
+              <p className="mt-2 text-sm text-rose-500">
+                {errors.password.message}
+              </p>
             )}
             <span className="absolute right-4 top-4">
               <svg
