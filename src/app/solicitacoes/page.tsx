@@ -70,7 +70,7 @@ const TablesPage = () => {
 
   return (
     <DefaultLayout>
-      <Breadcrumb pageName="Aprovações" />
+      <Breadcrumb pageName="Solicitações" />
       <div className="flex flex-col gap-10">
         <TableThree ItensName={Titles} Itens={itens} />
       </div>

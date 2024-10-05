@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import queryString from "query-string";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { jwtDecode } from "jwt-decode";
+import Cookies from "js-cookie";
 
 const loginSchema = z.object({
   email: z
@@ -29,32 +30,16 @@ const LoginForm = () => {
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const API_ROUTE = API_URL + "/login";
 
-  const [storedToken, setStoredToken] = useLocalStorage<string | null>(
-    "token",
-    null,
-  );
   const [user, setUser] = useState<User | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = Cookies.get("token");
 
     if (token) {
-      decodeJwtAndSetUser(token);
+      router.push("/dashboard");
     }
   }, []);
-
-  useEffect(() => {
-    if (user?.id) redirectLoggedUser();
-  }, [user]);
-
-  const redirectLoggedUser = () => {
-    if (!user) return;
-
-    const queryStringified = queryString.stringify(user);
-
-    router.push(`/dashboard?${queryStringified}`);
-  };
 
   const {
     register,
@@ -70,8 +55,10 @@ const LoginForm = () => {
       const token = response.data.token;
 
       if (token) {
-        setStoredToken(token);
-        decodeJwtAndSetUser(token);
+        // SALVE NOS COOKIES
+        Cookies.set("token", token.toString(), { expires: 7 });
+
+        router.push("/dashboard");
       }
     } catch (error: any) {
       setError("Aconteceu um erro, tente novamente.");
@@ -80,18 +67,6 @@ const LoginForm = () => {
         setError(null);
       }, 2500);
     }
-  };
-
-  const decodeJwtAndSetUser = (token: string) => {
-    const decoded: any = jwtDecode(token);
-    console.log("Decodificando token:", decoded);
-    const decodedUser = {
-      id: decoded.nameid,
-      name: decoded.nameid,
-      email: decoded.nameid,
-      pic: decoded.nameid,
-    };
-    setUser(decodedUser);
   };
 
   return (

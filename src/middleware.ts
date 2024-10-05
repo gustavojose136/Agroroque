@@ -1,37 +1,28 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-var jwt = require('jsonwebtoken');
+import { jwtVerify } from "jose";
 
-console.log("Middleware de autenticação");
-const SECRET_KEY = process.env.NEXT_PUBLIC_JWT_SECRET || "secret-key";
-console.log("SECRET_KEY:", SECRET_KEY);
-export function middleware(req: NextRequest) {
-  console.log("Middleware de autenticação");
-  const token = req.cookies.get("token")?.toString();
+const SECRET_KEY = new TextEncoder().encode(process.env.NEXT_PUBLIC_JWT_SECRET);
+
+export async function middleware(req: NextRequest) {
+  const token = req.cookies.get("token");
 
   if (!token) {
     console.log("Token não encontrado");
-    return NextResponse.redirect(
-      new URL(`/auth/login`, req.url),
-    );
+    return NextResponse.redirect(new URL(`/auth/login`, req.url));
   }
 
   try {
-    console.log("Verificando o token:", token);
-    // VERIFICA SE O TOKEN É VALIDO
-    jwt.verify(token, SECRET_KEY);
+    const { payload } = await jwtVerify(token.value, SECRET_KEY);
 
     // SE FOR VALIDO PASSA
     return NextResponse.next();
   } catch (error) {
-    //console.error("Erro ao verificar o token:", error);
-    return NextResponse.redirect(
-      new URL(`/auth/login`, req.url),
-    );
+    console.error("Erro ao verificar o token:", error);
+    return NextResponse.redirect(new URL(`/auth/login`, req.url));
   }
 }
 
 export const config = {
-  // matcher: ["/dashboard", "/profile", "/settings"],
-  matcher: [],
+  matcher: ["/dashboard", "/profile", "/settings", "/solicitacoes", "/shop"],
 };

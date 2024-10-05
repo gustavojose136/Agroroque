@@ -8,8 +8,6 @@ import { useRouter } from 'next/navigation';
 import LoginForm from '@/components/auth/loginForm';
 
 const SignIn: React.FC = () => {
-  const router = useRouter();
-
   return (
     <div className="flex h-screen w-screen items-center justify-center bg-[#F0F4F9] ">
       <div className="w-full max-w-7xl md:max-w-5xl 2xl:max-w-[60%] rounded-3xl border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">

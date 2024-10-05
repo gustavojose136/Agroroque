@@ -15,7 +15,7 @@ const TableThree = ({ ItensName, Itens }: ITableThreeProps) => {
   const router = useRouter();
 
   const handleViewClick = (id: string) => {
-    router.push(`/aprovacoes/${id}`);
+    router.push(`/solicitacoes/${id}`);
   };
 
   return (

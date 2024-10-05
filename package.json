@@ -20,6 +20,8 @@
     "clsx": "^2.1.1",
     "flatpickr": "^4.6.13",
     "framer-motion": "^11.5.6",
+    "jose": "^5.9.3",
+    "js-cookie": "^3.0.5",
     "jsonwebtoken": "^9.0.2",
     "jsvectormap": "^1.6.0",
     "jwt-decode": "^4.0.0",
@@ -39,6 +41,7 @@
   },
   "devDependencies": {
     "@iconify/react": "^5.0.2",
+    "@types/js-cookie": "^3.0.6",
     "@types/jwt-decode": "^2.2.1",
     "@types/node": "^20",
     "@types/react": "18.3.8",

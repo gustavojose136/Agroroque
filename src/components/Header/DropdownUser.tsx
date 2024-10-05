@@ -1,35 +1,43 @@
-import { use, useState } from "react";
+import { use, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import ClickOutside from "@/components/ClickOutside";
 import { useRouter } from "next/navigation";
 import { Icon } from "@iconify/react";
 import { jwtDecode } from "jwt-decode";
+import Cookies from "js-cookie";
+import { User } from "@/types/user";
 
 const DropdownUser = () => {
   const router = useRouter();
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const token = localStorage.getItem("token");
-   
-  var userName = "";
+  const [user, setUser] = useState<User>();
 
-  if (token) {
-    const decoded: any = jwtDecode(token);
-    
-    const decodedUser = {
-      id: decoded.nameid,
-      name: decoded.nameid,
-      email: decoded.nameid,
-      pic: decoded.nameid,
-    };
+  useEffect(() => {
+    const token = Cookies.get("token");
+    if (token) {
+      try {
+        const decoded: any = jwtDecode(token);
 
-    userName = decodedUser.name;
-  }
+        const decodedUser = {
+          id: decoded.id,
+          name: decoded.name,
+          email: decoded.email,
+        };
+
+        setUser(decodedUser);
+      } catch (error) {
+        console.error("Erro ao decodificar o token:", error);
+      }
+    }
+  }, []);
 
   const logoutUser = () => {
+    const token = Cookies.get("token");
+
     if (token) {
-      localStorage.removeItem("token");
+      Cookies.remove("token");
     }
 
     router.push("");
@@ -44,11 +52,11 @@ const DropdownUser = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            {userName}
+            {user?.name ? user.name : "Usúario"}
           </span>
         </span>
 
-        <span className="h-12 w-12 rounded-full flex justify-center items-center bg-gray">
+        <span className="flex h-12 w-12 items-center justify-center rounded-full bg-gray">
           {/* <Image
             width={112}
             height={112}
@@ -59,7 +67,7 @@ const DropdownUser = () => {
             }}
             alt="User"
           /> */}
-          <Icon icon="ph:user-bold" className="text-2xl"/>
+          <Icon icon="ph:user-bold" className="text-2xl" />
         </span>
 
         <svg
@@ -85,7 +93,7 @@ const DropdownUser = () => {
           className={`absolute right-0 mt-4 flex w-62.5 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark`}
         >
           <ul className="flex flex-col gap-5 border-b border-stroke px-6 py-7.5 dark:border-strokedark">
-             <li>
+            <li>
               <Link
                 href="/profile"
                 className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
